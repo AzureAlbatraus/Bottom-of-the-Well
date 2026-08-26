@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://cig2ydekwpktb"]
+
+[ext_resource type="Script" uid="uid://d1kace3awb1xu" path="res://BattleSystem/BattleManager.gd" id="1_0ug0n"]
+[ext_resource type="Script" uid="uid://dencysfie60ni" path="res://BattleSystem/fighter.gd" id="2_5gh0a"]
+[ext_resource type="Texture2D" uid="uid://dd5i6lqi6qqii" path="res://BattleSystem/Art/Backgrounds/battleback1.png" id="2_jo1oo"]
+[ext_resource type="Texture2D" uid="uid://d15l3a08o5e6j" path="res://BattleSystem/Art/Sprites/Boss_017.png" id="4_bavok"]
+[ext_resource type="AudioStream" uid="uid://c83kx8u8ej3wa" path="res://BattleSystem/Art/Audio/GS1_Hit_3.mp3" id="4_sfm4d"]
+[ext_resource type="AudioStream" uid="uid://p0gb4ga5m616" path="res://BattleSystem/Art/Audio/GS1_Damage_1.mp3" id="5_238cs"]
+
+[sub_resource type="Animation" id="Animation_sfm4d"]
+resource_name = "Die"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_238cs"]
+resource_name = "Idle"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1333334, 2.4666667, 2.8, 3.1333334, 3.4666667, 3.8, 4.133333, 4.4666667, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_swhuh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d2i15"]
+_data = {
+&"Die": SubResource("Animation_sfm4d"),
+&"Idle": SubResource("Animation_238cs"),
+&"RESET": SubResource("Animation_swhuh")
+}
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sfm4d"]
+color = Color(0.83137256, 0, 0, 1)
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_0ug0n"]
+color = Color(0, 0.5686275, 0, 1)
+thickness = 5
+
+[node name="BattleScene" type="Node2D" unique_id=74017576]
+script = ExtResource("1_0ug0n")
+
+[node name="BattleBackground" type="TextureRect" parent="." unique_id=799385896]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -3.0
+offset_right = 324.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jo1oo")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Hero" type="Node2D" parent="." unique_id=325250492 groups=["Party"]]
+script = ExtResource("2_5gh0a")
+hit_sound = ExtResource("4_sfm4d")
+
+[node name="Slime" type="Node2D" parent="." unique_id=479053173 groups=["Enemies"]]
+script = ExtResource("2_5gh0a")
+fighter_name = "Slime"
+max_hp = 50
+current_hp = 50
+hit_sound = ExtResource("5_238cs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Slime" unique_id=1768146842]
+scale = Vector2(2, 2)
+texture = ExtResource("4_bavok")
+hframes = 4
+vframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Slime" unique_id=1385780824]
+libraries/ = SubResource("AnimationLibrary_d2i15")
+autoplay = &"Idle"
+
+[node name="BattleUI" type="CanvasLayer" parent="." unique_id=2059437273]
+
+[node name="MarginContainer" type="MarginContainer" parent="BattleUI" unique_id=1652872764]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -74.0
+offset_right = 38.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BattleUI/MarginContainer" unique_id=512126524]
+layout_mode = 2
+
+[node name="ActionMenuPanel" type="PanelContainer" parent="BattleUI/MarginContainer/HBoxContainer" unique_id=1189183866]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel" unique_id=775398913]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel/VBoxContainer" unique_id=651098871]
+layout_mode = 2
+text = "Attack"
+
+[node name="DefendButton" type="Button" parent="BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel/VBoxContainer" unique_id=874336179]
+layout_mode = 2
+text = "Defend"
+
+[node name="RunButton" type="Button" parent="BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel/VBoxContainer" unique_id=439670759]
+layout_mode = 2
+text = "Run"
+
+[node name="PartyStatsPanel" type="PanelContainer" parent="BattleUI/MarginContainer/HBoxContainer" unique_id=568646333]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatsList" type="VBoxContainer" parent="BattleUI/MarginContainer/HBoxContainer/PartyStatsPanel" unique_id=415547281]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BattleUI/MarginContainer/HBoxContainer/PartyStatsPanel/StatsList" unique_id=1988182814]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BattleUI/MarginContainer/HBoxContainer/PartyStatsPanel/StatsList/HBoxContainer" unique_id=1706284320]
+layout_mode = 2
+text = "Hero"
+
+[node name="HPBar" type="ProgressBar" parent="BattleUI/MarginContainer/HBoxContainer/PartyStatsPanel/StatsList/HBoxContainer" unique_id=1633278491]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxLine_sfm4d")
+theme_override_styles/fill = SubResource("StyleBoxLine_0ug0n")
+value = 100.0
+
+[node name="TargetMenuPanel" type="PanelContainer" parent="BattleUI/MarginContainer/HBoxContainer" unique_id=1871722716]
+layout_mode = 2
+
+[node name="TargetList" type="VBoxContainer" parent="BattleUI/MarginContainer/HBoxContainer/TargetMenuPanel" unique_id=259498490]
+layout_mode = 2
+
+[node name="TextWindowPanel" type="PanelContainer" parent="BattleUI" unique_id=2119958788]
+visible = false
+custom_minimum_size = Vector2(320, 100)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -10.5
+offset_right = 10.5
+offset_bottom = 20.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="BattleUI/TextWindowPanel" unique_id=416535131]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BattleTextLabel" type="RichTextLabel" parent="BattleUI/TextWindowPanel/MarginContainer" unique_id=1184049812]
+layout_mode = 2
+bbcode_enabled = true
+text = "A wild Slime appears!"
+
+[node name="ScreenFlashOverlay" type="ColorRect" parent="BattleUI" unique_id=1819737001]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EnemySpawnPoint" type="Marker2D" parent="." unique_id=1641651084]
+position = Vector2(157, 54)

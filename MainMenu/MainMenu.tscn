@@ -1,8 +1,54 @@
 [gd_scene format=3 uid="uid://bvlgpae7ji2al"]
 
-[ext_resource type="Texture2D" uid="uid://crvblo3cstcpq" path="res://MainMenu/Menu Buttons 1.png" id="1_eiy7p"]
+[ext_resource type="FontFile" uid="uid://b8aa8iox2jepm" path="res://MainMenu/neatpixels-standard23.ttf" id="1_b76km"]
 [ext_resource type="Script" uid="uid://baxal0eut76t2" path="res://MainMenu/play_button.gd" id="2_b76km"]
-[ext_resource type="Texture2D" uid="uid://d1lqk1pt0ewyr" path="res://MainMenu/Menu Buttons 17.png" id="2_h7a2f"]
+[ext_resource type="Texture2D" uid="uid://lq4sspkwgsbf" path="res://MainMenu/Menu Buttons 183.png" id="2_lbqne"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_430ii"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_lbqne")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3p42x"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_lbqne")
+modulate_color = Color(1, 1, 1, 0.48235294)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3clmd"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_lbqne")
+modulate_color = Color(1, 1, 1, 0.24313726)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bsanu"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_lbqne")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kftou"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_lbqne")
+modulate_color = Color(1, 1, 1, 0.48235294)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nre7b"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_lbqne")
+modulate_color = Color(1, 1, 1, 0.24313726)
 
 [node name="Node2D" type="Node2D" unique_id=1338530620]
 scale = Vector2(0.25, 0.25)
@@ -29,9 +75,21 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer" unique_id=511040453]
 layout_mode = 2
-icon = ExtResource("1_eiy7p")
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b76km")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxTexture_430ii")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3p42x")
+theme_override_styles/hover = SubResource("StyleBoxTexture_3clmd")
+text = "Play"
 script = ExtResource("2_b76km")
 
 [node name="Button2" type="Button" parent="MarginContainer/HBoxContainer" unique_id=693217648]
 layout_mode = 2
-icon = ExtResource("2_h7a2f")
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_b76km")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxTexture_bsanu")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kftou")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nre7b")
+text = "Quit"

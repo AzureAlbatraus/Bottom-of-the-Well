@@ -5,8 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://cj77goq2xxpol" path="res://Characters/Player/Player.tscn" id="2_5vngi"]
 [ext_resource type="Script" uid="uid://1prx81cbfkrw" path="res://StartingTown/world_map_exit.gd" id="3_7us7x"]
 [ext_resource type="PackedScene" uid="uid://cbn2sj8qktwuu" path="res://Characters/Player/camera_2d.tscn" id="3_txbd4"]
-[ext_resource type="Script" uid="uid://c1seufj2upkvs" path="res://Characters/interactable.gd" id="6_i6mae"]
-[ext_resource type="PackedScene" uid="uid://d1fvw3ers24qm" path="res://DialogueSystem/DialogueUI.tscn" id="7_w43d5"]
+[ext_resource type="Script" uid="uid://b16ho2pimg0so" path="res://Characters/sign_post.gd" id="6_0xaw5"]
+[ext_resource type="PackedScene" uid="uid://cdpp1qpgqp0f7" path="res://InventoryManagement/item_pickup.tscn" id="8_k4dwq"]
+[ext_resource type="Resource" uid="uid://cog5li0ky6qyd" path="res://InventoryManagement/potion.tres" id="9_0xaw5"]
+[ext_resource type="PackedScene" uid="uid://dkwk30p5dgbv8" path="res://InventoryManagement/PauseMenuUI.tscn" id="10_vybgv"]
+[ext_resource type="Resource" uid="uid://b3qyxlxcrru5y" path="res://InventoryManagement/ether.tres" id="11_yb045"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5vngi"]
 texture = ExtResource("1_qwixl")
@@ -1293,7 +1296,7 @@ size = Vector2(30, 15)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w43d5"]
 size = Vector2(16, 16)
 
-[node name="Node2D" type="Node2D" unique_id=1903855641]
+[node name="StartingTown" type="Node2D" unique_id=1903855641]
 script = ExtResource("1_mhmpt")
 
 [node name="TileMapLayerGround" type="TileMapLayer" parent="." unique_id=1307912787]
@@ -1317,6 +1320,10 @@ tile_set = SubResource("TileSet_7us7x")
 position = Vector2(296, 233)
 collision_layer = 3
 collision_mask = 3
+battle_scene_path = null
+encounter_chance = null
+walk_speed = null
+terrain_speed_multiplier = null
 
 [node name="Camera2D" parent="Player" unique_id=1370498780 instance=ExtResource("3_txbd4")]
 position = Vector2(24, 10)
@@ -1336,13 +1343,21 @@ position = Vector2(304, 320)
 [node name="SignNode" type="StaticBody2D" parent="." unique_id=125627169]
 position = Vector2(280, 253)
 collision_layer = 2
-script = ExtResource("6_i6mae")
+script = ExtResource("6_0xaw5")
 interaction_text = Array[String](["Hero's Home"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SignNode" unique_id=1612981554]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_w43d5")
 
-[node name="DialogueUI" parent="." unique_id=979652588 instance=ExtResource("7_w43d5")]
+[node name="PauseMenuUi" parent="." unique_id=2105318951 instance=ExtResource("10_vybgv")]
+
+[node name="Potion" parent="." unique_id=1266865488 instance=ExtResource("8_k4dwq")]
+position = Vector2(199, 280)
+item_to_give = ExtResource("9_0xaw5")
+
+[node name="Ether" parent="." unique_id=1580927781 instance=ExtResource("8_k4dwq")]
+position = Vector2(391, 136)
+item_to_give = ExtResource("11_yb045")
 
 [connection signal="body_entered" from="WorldMapExit" to="WorldMapExit" method="_on_body_entered"]

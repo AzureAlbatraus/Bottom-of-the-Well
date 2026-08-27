@@ -19,11 +19,13 @@ config/icon="res://icon.svg"
 
 SceneManager="*uid://btm8umohxnuhi"
 GlobalGameManager="*uid://debj7d40xe5ir"
+DialogueUI="*uid://d1fvw3ers24qm"
 
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=180
+window/size/mode=2
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"

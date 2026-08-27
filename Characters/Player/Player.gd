@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 var is_interacting: bool = false
-@onready var dialogue_ui = get_tree().current_scene.get_node_or_null("DialogueUI")
 
 @export var tilemap_layer: TileMapLayer
 @export var battle_scene_path: String = "res://BattleSystem/BattleScene.tscn"
@@ -79,15 +78,19 @@ func _unhandled_input(event: InputEvent) -> void:
 				is_interacting = true
 				
 				get_viewport().set_input_as_handled()
-				
-				if dialogue_ui:
-					if not dialogue_ui.dialogue_finished.is_connected(_on_dialogue_finished):
-						dialogue_ui.dialogue_finished.connect(_on_dialogue_finished)
-					dialogue_ui.start_dialogue(collider.interaction_text)
-				else:
+				if collider.interact(self) != null:
 					collider.interact(self)
 					is_interacting = false
-				return
+				else:
+					
+					if DialogueUI:
+							if not DialogueUI.dialogue_finished.is_connected(_on_dialogue_finished):
+								DialogueUI.dialogue_finished.connect(_on_dialogue_finished)
+							DialogueUI.start_dialogue(collider.interaction_text)
+					else:
+						collider.interact(self)
+						is_interacting = false
+					return
 
 	for action in inputs.keys():
 		if event.is_action_pressed(action):

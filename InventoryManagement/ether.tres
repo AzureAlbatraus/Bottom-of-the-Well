@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b3qyxlxcrru5y"]
+
+[ext_resource type="Script" uid="uid://cdd2bnwlf4q2s" path="res://InventoryManagement/item_data.gd" id="1_5j6j8"]
+[ext_resource type="Texture2D" uid="uid://u31gbrwyx1yd" path="res://InventoryManagement/InventoryArt/RA_Item_Icons_406.png" id="2_3hi1b"]
+
+[resource]
+script = ExtResource("1_5j6j8")
+item_name = "Ether"
+texture = ExtResource("2_3hi1b")
+hp_restoration = 0
+mp_restoration = 50
+metadata/_custom_type_script = "uid://cdd2bnwlf4q2s"

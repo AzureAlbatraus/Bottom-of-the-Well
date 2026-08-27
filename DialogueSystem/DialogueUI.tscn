@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d1fvw3ers24qm"]
 
 [ext_resource type="Script" uid="uid://chlj2vbt6ktr4" path="res://DialogueSystem/dialogue_ui.gd" id="1_w81pl"]
+[ext_resource type="FontFile" uid="uid://d07k6377vftiw" path="res://DialogueSystem/DialogueSystemArt/neatpixels-standard3.ttf" id="2_u55ny"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3culc"]
 content_margin_left = 30.0
@@ -8,20 +9,28 @@ content_margin_top = 30.0
 content_margin_right = 30.0
 content_margin_bottom = 30.0
 
-[node name="DialogueUi" type="CanvasLayer" unique_id=979652588]
+[node name="DialogueUI" type="CanvasLayer" unique_id=979652588]
+process_mode = 3
+layer = 2
 script = ExtResource("1_w81pl")
 
 [node name="DialoguePanel" type="PanelContainer" parent="." unique_id=1416934581]
 visible = false
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 50)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -20.0
+offset_top = -100.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3culc")
+
+[node name="ColorRect" type="ColorRect" parent="DialoguePanel" unique_id=1015013754]
+custom_minimum_size = Vector2(320, 100)
+layout_mode = 2
+color = Color(0, 0, 0, 0.48235294)
 
 [node name="MarginContainer" type="MarginContainer" parent="DialoguePanel" unique_id=595834617]
 layout_mode = 2
@@ -32,4 +41,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="DialogueTextLabel" type="RichTextLabel" parent="DialoguePanel/MarginContainer" unique_id=1664568608]
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_u55ny")
+theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true

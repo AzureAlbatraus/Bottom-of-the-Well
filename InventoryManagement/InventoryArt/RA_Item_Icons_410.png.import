@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd5i6lqi6qqii"
-path="res://.godot/imported/battleback1.png-2167a6a7eea5ff67bc17f7259ce50deb.ctex"
+uid="uid://ic7n1f4cxrh8"
+path="res://.godot/imported/RA_Item_Icons_410.png-40b1e43caec58e8d393ce67c47243f64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BattleSystem/Art/Backgrounds/battleback1.png"
-dest_files=["res://.godot/imported/battleback1.png-2167a6a7eea5ff67bc17f7259ce50deb.ctex"]
+source_file="res://InventoryManagement/InventoryArt/RA_Item_Icons_410.png"
+dest_files=["res://.godot/imported/RA_Item_Icons_410.png-40b1e43caec58e8d393ce67c47243f64.ctex"]
 
 [params]
 

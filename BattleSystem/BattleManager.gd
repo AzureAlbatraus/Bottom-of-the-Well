@@ -1,7 +1,7 @@
 extends Node
 
-@onready var target_menu_panel: PanelContainer = $BattleUI/MarginContainer/HBoxContainer/TargetMenuPanel
-@onready var target_list: VBoxContainer = $BattleUI/MarginContainer/HBoxContainer/TargetMenuPanel/TargetList
+@onready var target_menu_panel: PanelContainer = $BattleUI/MarginContainer/CommandConsolePanel/TargetMenuPanel
+@onready var target_list: VBoxContainer = $BattleUI/MarginContainer/CommandConsolePanel/TargetMenuPanel/TargetList
 
 @onready var screen_flash_overlay: ColorRect = $BattleUI/ScreenFlashOverlay
 
@@ -10,11 +10,14 @@ extends Node
 
 @export var text_speed: float = 0.03
 
-@onready var action_menu_panel: PanelContainer = $BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel
-@onready var attack_button: Button = $BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel/VBoxContainer/AttackButton
-@onready var defend_button: Button = $BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel/VBoxContainer/DefendButton
-@onready var run_button: Button = $BattleUI/MarginContainer/HBoxContainer/ActionMenuPanel/VBoxContainer/RunButton
-@onready var hp_bar: ProgressBar = $BattleUI/MarginContainer/HBoxContainer/PartyStatsPanel/StatsList/HBoxContainer/HPBar
+@onready var party_stats_panel: PanelContainer = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/PartyStatsPanel
+@onready var action_menu_panel: PanelContainer = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel
+@onready var attack_button: Button = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer/AttackButton
+@onready var defend_button: Button = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer/DefendButton
+@onready var run_button: Button = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer/RunButton
+@onready var hp_bar: ProgressBar = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/PartyStatsPanel/StatsList/HBoxContainer/HPBar
+
+@export var click_sound: AudioStream
 
 enum BattleState { START, PLAYER_TURN, ENEMY_TURN, WIN, LOSE }
 var current_state: BattleState = BattleState.START
@@ -24,11 +27,30 @@ var enemies: Array[Fighter] = []
 var turn_queue: Array[Fighter] = []
 var current_fighter: Fighter
 
+var default_font = load("res://BattleSystem/BattleSystemArt/UI/neatpixels-standard2.ttf")
+
+var new_stylebox := StyleBoxTexture.new()
+var pressed_stylebox: StyleBoxTexture
+var hover_stylebox: StyleBoxTexture
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	attack_button.pressed.connect(_on_attack_button_pressed)
 	defend_button.pressed.connect(_on_defend_button_pressed)
 	run_button.pressed.connect(_on_run_button_pressed)
+	
+	new_stylebox.texture = preload("res://BattleSystem/BattleSystemArt/UI/Menu Buttons 18.png")
+	
+	new_stylebox.texture_margin_left = 8.0
+	new_stylebox.texture_margin_right = 8.0
+	new_stylebox.texture_margin_top = 9.0
+	new_stylebox.texture_margin_bottom = 8.0
+	
+	pressed_stylebox = new_stylebox.duplicate()
+	pressed_stylebox.modulate_color = Color(1, 1, 1, 0.5)
+	
+	hover_stylebox = new_stylebox.duplicate()
+	hover_stylebox.modulate_color = Color(1, 1, 1, 0.25)
 	
 	gather_fighters()
 	create_turn_queue()
@@ -121,11 +143,14 @@ func clean_dead_fighters_from_queue() -> void:
 func show_player_ui() -> void:
 	target_menu_panel.hide()
 	action_menu_panel.show()
-	hp_bar.value = current_fighter.current_hp
-	hp_bar.max_value = current_fighter.max_hp
+	if is_instance_valid(current_fighter):
+		hp_bar.value = current_fighter.current_hp
+		hp_bar.max_value = current_fighter.max_hp
+		party_stats_panel.show()
 	
 func hide_player_ui() -> void:
 	action_menu_panel.hide()
+	party_stats_panel.hide()
 	
 func end_battle(result: BattleState) -> void:
 	if result == BattleState.WIN:
@@ -144,8 +169,11 @@ func initialize_battle() -> void:
 func _on_attack_button_pressed() -> void:
 	if current_state != BattleState.PLAYER_TURN:
 		return
-
+	
+	play_click_sound()
+	
 	action_menu_panel.hide()
+	party_stats_panel.hide()
 	populate_target_menu()
 
 	if enemies.is_empty(): return
@@ -154,6 +182,8 @@ func _on_attack_button_pressed() -> void:
 func _on_defend_button_pressed() -> void:
 	if current_state != BattleState.PLAYER_TURN:
 		return
+	
+	play_click_sound()
 	
 	hide_player_ui()
 	current_fighter.is_defending = true
@@ -164,6 +194,8 @@ func _on_defend_button_pressed() -> void:
 func _on_run_button_pressed() -> void:
 	if current_state != BattleState.PLAYER_TURN:
 		return
+	
+	play_click_sound()
 	
 	hide_player_ui()
 	await display_message(current_fighter.fighter_name + " tries to escape...")
@@ -186,17 +218,25 @@ func populate_target_menu() -> void:
 		if is_instance_valid(enemy):
 			var btn = Button.new()
 			btn.text = enemy.fighter_name
-			
+			btn.add_theme_stylebox_override("normal", new_stylebox)
+			btn.add_theme_font_override("font", default_font)
+			btn.add_theme_stylebox_override("pressed", pressed_stylebox)
+			btn.add_theme_stylebox_override("hover", hover_stylebox)
 			btn.pressed.connect(func(): _on_target_selected(enemy))
 			
 			target_list.add_child(btn)
 			
 	var back_btn = Button.new()
 	back_btn.text = "< Cancel"
+	back_btn.add_theme_stylebox_override("normal", new_stylebox)
+	back_btn.add_theme_font_override("font", default_font)
+	back_btn.add_theme_stylebox_override("pressed", pressed_stylebox)
+	back_btn.add_theme_stylebox_override("hover", hover_stylebox)
 	back_btn.pressed.connect(cancel_target_selection)
 	target_list.add_child(back_btn)
 	
 func _on_target_selected(target: Fighter) -> void:
+	play_click_sound()
 	target_menu_panel.hide()
 	
 	await display_message(current_fighter.fighter_name + " attacks " + target.fighter_name + "!")
@@ -208,8 +248,10 @@ func _on_target_selected(target: Fighter) -> void:
 	advance_turn()
 	
 func cancel_target_selection() -> void:
+	play_click_sound()
 	target_menu_panel.hide()
 	action_menu_panel.show()
+	party_stats_panel.show()
 	
 	
 func display_message(text: String) -> void:
@@ -233,6 +275,17 @@ func display_message(text: String) -> void:
 	
 	await get_tree().create_timer(1.0).timeout
 	text_window_panel.hide()
+
+func play_click_sound() -> void:
+	if not click_sound:
+		return
+	
+	var audio_player = AudioStreamPlayer2D.new()
+	audio_player.stream = click_sound
+	audio_player.bus = "SFX"
+	get_parent().add_child(audio_player)
+	audio_player.play()
+	audio_player.finished.connect(audio_player.queue_free)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

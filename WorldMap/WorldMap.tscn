@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cj77goq2xxpol" path="res://Characters/Player/Player.tscn" id="5_742l8"]
 [ext_resource type="PackedScene" uid="uid://cbn2sj8qktwuu" path="res://Characters/Player/camera_2d.tscn" id="6_4kcrf"]
 [ext_resource type="Script" uid="uid://b0hsngwqil453" path="res://WorldMap/world_map_entrance.gd" id="7_38rf5"]
+[ext_resource type="PackedScene" uid="uid://dkwk30p5dgbv8" path="res://InventoryManagement/PauseMenuUI.tscn" id="8_g1hmn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g1hmn"]
 texture = ExtResource("2_v7va0")
@@ -1513,7 +1514,7 @@ sources/0 = SubResource("TileSetAtlasSource_xfg1w")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kcrf"]
 size = Vector2(9, 9)
 
-[node name="Node2D" type="Node2D" unique_id=413836567]
+[node name="WorldMap" type="Node2D" unique_id=413836567]
 script = ExtResource("1_v7va0")
 
 [node name="TileMapLayerGroundBase" type="TileMapLayer" parent="." unique_id=1603972998]
@@ -1542,6 +1543,10 @@ position = Vector2(144, 97)
 [node name="Player" parent="." unique_id=1992396706 node_paths=PackedStringArray("tilemap_layer") instance=ExtResource("5_742l8")]
 position = Vector2(30, 32)
 tilemap_layer = NodePath("../TileMapLayerGround3")
+battle_scene_path = null
+encounter_chance = null
+walk_speed = null
+terrain_speed_multiplier = null
 
 [node name="Camera2D" parent="Player" unique_id=1370498780 instance=ExtResource("6_4kcrf")]
 position = Vector2(24, 11)
@@ -1555,5 +1560,7 @@ target_marker_name = "WorldMapEntrance"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartingTownEntrance" unique_id=999946440]
 position = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_4kcrf")
+
+[node name="PauseMenuUi" parent="." unique_id=2105318951 instance=ExtResource("8_g1hmn")]
 
 [connection signal="body_entered" from="StartingTownEntrance" to="StartingTownEntrance" method="_on_body_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d15l3a08o5e6j"
-path="res://.godot/imported/Boss_017.png-14c598694384dc20bb088ea15d9f2c61.ctex"
+uid="uid://brucsy2s1b8y8"
+path="res://.godot/imported/Menu Buttons 18.png-3fce86ad7fa8cdabe63bf531fcc66721.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BattleSystem/Art/Sprites/Boss_017.png"
-dest_files=["res://.godot/imported/Boss_017.png-14c598694384dc20bb088ea15d9f2c61.ctex"]
+source_file="res://BattleSystem/BattleSystemArt/UI/Menu Buttons 18.png"
+dest_files=["res://.godot/imported/Menu Buttons 18.png-3fce86ad7fa8cdabe63bf531fcc66721.ctex"]
 
 [params]
 

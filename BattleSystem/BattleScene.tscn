@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://cig2ydekwpktb"]
 
-[ext_resource type="Script" uid="uid://d1kace3awb1xu" path="res://BattleSystem/BattleManager.gd" id="1_0ug0n"]
-[ext_resource type="Script" uid="uid://dencysfie60ni" path="res://BattleSystem/fighter.gd" id="2_5gh0a"]
-[ext_resource type="Texture2D" uid="uid://dd5i6lqi6qqii" path="res://BattleSystem/BattleSystemArt/Backgrounds/battleback1.png" id="2_jo1oo"]
-[ext_resource type="AudioStream" uid="uid://dxaq2jc4f10qu" path="res://BattleSystem/BattleSystemArt/Audio/UI_Button_Click_1.mp3" id="2_pdy5n"]
-[ext_resource type="Texture2D" uid="uid://d15l3a08o5e6j" path="res://BattleSystem/BattleSystemArt/Sprites/Boss_017.png" id="4_bavok"]
-[ext_resource type="AudioStream" uid="uid://c83kx8u8ej3wa" path="res://BattleSystem/BattleSystemArt/Audio/GS1_Hit_3.mp3" id="4_sfm4d"]
-[ext_resource type="AudioStream" uid="uid://p0gb4ga5m616" path="res://BattleSystem/BattleSystemArt/Audio/GS1_Damage_1.mp3" id="5_238cs"]
-[ext_resource type="FontFile" uid="uid://c580cwwu1w5g" path="res://BattleSystem/BattleSystemArt/UI/neatpixels-standard2.ttf" id="7_swhuh"]
-[ext_resource type="Texture2D" uid="uid://brucsy2s1b8y8" path="res://BattleSystem/BattleSystemArt/UI/Menu Buttons 18.png" id="8_d2i15"]
-[ext_resource type="Texture2D" uid="uid://cew7ren1djbx4" path="res://BattleSystem/BattleSystemArt/UI/Health_03.png" id="9_nec8h"]
-[ext_resource type="Texture2D" uid="uid://dtrcnblhla3lr" path="res://BattleSystem/BattleSystemArt/UI/Health_03_Bar01.png" id="10_pdy5n"]
+[ext_resource type="Script" uid="uid://d1kace3awb1xu" path="res://BattleSystem/BattleManager.gd" id="1_wyd46"]
+[ext_resource type="AudioStream" uid="uid://dxaq2jc4f10qu" path="res://BattleSystem/BattleSystemArt/Audio/UI_Button_Click_1.mp3" id="2_huy0o"]
+[ext_resource type="Texture2D" uid="uid://dd5i6lqi6qqii" path="res://BattleSystem/BattleSystemArt/Backgrounds/battleback1.png" id="3_dqe84"]
+[ext_resource type="Script" uid="uid://dencysfie60ni" path="res://BattleSystem/fighter.gd" id="4_q26of"]
+[ext_resource type="AudioStream" uid="uid://c83kx8u8ej3wa" path="res://BattleSystem/BattleSystemArt/Audio/GS1_Hit_3.mp3" id="5_vot6v"]
+[ext_resource type="AudioStream" uid="uid://p0gb4ga5m616" path="res://BattleSystem/BattleSystemArt/Audio/GS1_Damage_1.mp3" id="6_7wmob"]
+[ext_resource type="Texture2D" uid="uid://d15l3a08o5e6j" path="res://BattleSystem/BattleSystemArt/Sprites/Boss_017.png" id="7_yjiny"]
+[ext_resource type="Texture2D" uid="uid://brucsy2s1b8y8" path="res://BattleSystem/BattleSystemArt/UI/Menu Buttons 18.png" id="8_saiim"]
+[ext_resource type="FontFile" uid="uid://c580cwwu1w5g" path="res://BattleSystem/BattleSystemArt/UI/neatpixels-standard2.ttf" id="9_bilnn"]
+[ext_resource type="Texture2D" uid="uid://cew7ren1djbx4" path="res://BattleSystem/BattleSystemArt/UI/Health_03.png" id="10_qcvjs"]
+[ext_resource type="Texture2D" uid="uid://dtrcnblhla3lr" path="res://BattleSystem/BattleSystemArt/UI/Health_03_Bar01.png" id="11_24mxy"]
 
 [sub_resource type="Animation" id="Animation_sfm4d"]
 resource_name = "Die"
@@ -68,7 +68,7 @@ _data = {
 }
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6yh34"]
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 texture_margin_left = 12.0
 texture_margin_top = 16.0
 texture_margin_right = 12.0
@@ -85,14 +85,14 @@ content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_swhuh"]
 content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 modulate_color = Color(1, 1, 1, 0.48235294)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1bsbl"]
@@ -100,7 +100,7 @@ content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 modulate_color = Color(1, 1, 1, 0.24313726)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdy5n"]
@@ -108,14 +108,14 @@ content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d2i15"]
 content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 modulate_color = Color(1, 1, 1, 0.48235294)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wme0s"]
@@ -123,7 +123,30 @@ content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
+modulate_color = Color(1, 1, 1, 0.24313726)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wyd46"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("8_saiim")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_huy0o"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("8_saiim")
+modulate_color = Color(1, 1, 1, 0.48235294)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dqe84"]
+content_margin_left = 8.0
+content_margin_top = 9.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("8_saiim")
 modulate_color = Color(1, 1, 1, 0.24313726)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eilth"]
@@ -131,14 +154,14 @@ content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8scx"]
 content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 modulate_color = Color(1, 1, 1, 0.48235294)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uuf08"]
@@ -146,26 +169,26 @@ content_margin_left = 8.0
 content_margin_top = 9.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("8_d2i15")
+texture = ExtResource("8_saiim")
 modulate_color = Color(1, 1, 1, 0.24313726)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eilth"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_syuuq"]
-texture = ExtResource("9_nec8h")
+texture = ExtResource("10_qcvjs")
 expand_margin_left = 10.0
 expand_margin_top = 9.0
 expand_margin_right = 10.0
 expand_margin_bottom = 9.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ul32v"]
-texture = ExtResource("10_pdy5n")
+texture = ExtResource("11_24mxy")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n8scx"]
 
 [node name="BattleScene" type="Node2D" unique_id=74017576]
-script = ExtResource("1_0ug0n")
-click_sound = ExtResource("2_pdy5n")
+script = ExtResource("1_wyd46")
+click_sound = ExtResource("2_huy0o")
 
 [node name="BattleBackground" type="TextureRect" parent="." unique_id=799385896]
 anchors_preset = 15
@@ -177,24 +200,24 @@ offset_right = 324.0
 offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_jo1oo")
+texture = ExtResource("3_dqe84")
 expand_mode = 1
 stretch_mode = 6
 
 [node name="Hero" type="Node2D" parent="." unique_id=325250492 groups=["Party"]]
-script = ExtResource("2_5gh0a")
-hit_sound = ExtResource("4_sfm4d")
+script = ExtResource("4_q26of")
+hit_sound = ExtResource("5_vot6v")
 
 [node name="Slime" type="Node2D" parent="." unique_id=479053173 groups=["Enemies"]]
-script = ExtResource("2_5gh0a")
+script = ExtResource("4_q26of")
 fighter_name = "Slime"
 max_hp = 50
 current_hp = 50
-hit_sound = ExtResource("5_238cs")
+hit_sound = ExtResource("6_7wmob")
 
 [node name="Sprite2D" type="Sprite2D" parent="Slime" unique_id=1768146842]
 scale = Vector2(2, 2)
-texture = ExtResource("4_bavok")
+texture = ExtResource("7_yjiny")
 hframes = 4
 vframes = 5
 
@@ -216,6 +239,7 @@ offset_bottom = 47.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
@@ -236,10 +260,11 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_pdy5n")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel" unique_id=775398913]
 layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="AttackButton" type="Button" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer" unique_id=651098871]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_swhuh")
+theme_override_fonts/font = ExtResource("9_bilnn")
 theme_override_font_sizes/font_size = 10
 theme_override_styles/normal = SubResource("StyleBoxTexture_nec8h")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_swhuh")
@@ -248,16 +273,25 @@ text = "Attack"
 
 [node name="DefendButton" type="Button" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer" unique_id=874336179]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_swhuh")
+theme_override_fonts/font = ExtResource("9_bilnn")
 theme_override_font_sizes/font_size = 10
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdy5n")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_d2i15")
 theme_override_styles/hover = SubResource("StyleBoxTexture_wme0s")
 text = "Defend"
 
+[node name="ItemButton" type="Button" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer" unique_id=30793250]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_bilnn")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxTexture_wyd46")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_huy0o")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dqe84")
+text = "Items"
+
 [node name="RunButton" type="Button" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer" unique_id=439670759]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_swhuh")
+theme_override_fonts/font = ExtResource("9_bilnn")
 theme_override_font_sizes/font_size = 10
 theme_override_styles/normal = SubResource("StyleBoxTexture_eilth")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_n8scx")
@@ -279,7 +313,7 @@ theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/PartyStatsPanel/StatsList/HBoxContainer" unique_id=1706284320]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_swhuh")
+theme_override_fonts/font = ExtResource("9_bilnn")
 theme_override_font_sizes/font_size = 16
 text = "Hero"
 
@@ -287,11 +321,25 @@ text = "Hero"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("7_swhuh")
+theme_override_fonts/font = ExtResource("9_bilnn")
 theme_override_font_sizes/font_size = 4
 theme_override_styles/background = SubResource("StyleBoxTexture_syuuq")
 theme_override_styles/fill = SubResource("StyleBoxTexture_ul32v")
 value = 100.0
+
+[node name="BattleItemMenuPanel" type="PanelContainer" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer" unique_id=522053561]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/BattleItemMenuPanel" unique_id=455748226]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="BattleItemList" type="VBoxContainer" parent="BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/BattleItemMenuPanel/ScrollContainer" unique_id=1268830150]
+layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="TargetMenuPanel" type="PanelContainer" parent="BattleUI/MarginContainer/CommandConsolePanel" unique_id=1871722716]
 layout_mode = 2
@@ -322,7 +370,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="BattleTextLabel" type="RichTextLabel" parent="BattleUI/TextWindowPanel/MarginContainer" unique_id=1184049812]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("7_swhuh")
+theme_override_fonts/normal_font = ExtResource("9_bilnn")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 text = "A wild Slime appears!"

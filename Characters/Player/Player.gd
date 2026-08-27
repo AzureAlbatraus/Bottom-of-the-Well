@@ -190,7 +190,7 @@ func trigger_battle() -> void:
 	GlobalGameManager.player_overworld_position = global_position
 	GlobalGameManager.coming_from_battle = true
 	
-	get_tree().change_scene_to_file("res://BattleSystem/Battle.tscn")
+	get_tree().change_scene_to_file("res://BattleSystem/BattleScene.tscn")
 			
 			
 			

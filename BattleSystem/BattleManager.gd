@@ -1,5 +1,8 @@
 extends Node
 
+@onready var battle_item_menu_panel: PanelContainer = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/BattleItemMenuPanel
+@onready var battle_item_list: VBoxContainer = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/BattleItemMenuPanel/ScrollContainer/BattleItemList
+
 @onready var target_menu_panel: PanelContainer = $BattleUI/MarginContainer/CommandConsolePanel/TargetMenuPanel
 @onready var target_list: VBoxContainer = $BattleUI/MarginContainer/CommandConsolePanel/TargetMenuPanel/TargetList
 
@@ -15,6 +18,7 @@ extends Node
 @onready var attack_button: Button = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer/AttackButton
 @onready var defend_button: Button = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer/DefendButton
 @onready var run_button: Button = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer/RunButton
+@onready var item_button: Button = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/ActionMenuPanel/VBoxContainer/ItemButton
 @onready var hp_bar: ProgressBar = $BattleUI/MarginContainer/CommandConsolePanel/HBoxContainer/PartyStatsPanel/StatsList/HBoxContainer/HPBar
 
 @export var click_sound: AudioStream
@@ -38,6 +42,7 @@ func _ready() -> void:
 	attack_button.pressed.connect(_on_attack_button_pressed)
 	defend_button.pressed.connect(_on_defend_button_pressed)
 	run_button.pressed.connect(_on_run_button_pressed)
+	item_button.pressed.connect(_on_item_button_pressed)
 	
 	new_stylebox.texture = preload("res://BattleSystem/BattleSystemArt/UI/Menu Buttons 18.png")
 	
@@ -142,6 +147,7 @@ func clean_dead_fighters_from_queue() -> void:
 	
 func show_player_ui() -> void:
 	target_menu_panel.hide()
+	battle_item_menu_panel.hide()
 	action_menu_panel.show()
 	if is_instance_valid(current_fighter):
 		hp_bar.value = current_fighter.current_hp
@@ -208,6 +214,114 @@ func _on_run_button_pressed() -> void:
 		await display_message("Can't escape!")
 		advance_turn()
 	
+func _on_item_button_pressed() -> void:
+	if current_state != BattleState.PLAYER_TURN:
+		return
+		
+	play_click_sound()
+	action_menu_panel.hide()
+	party_stats_panel.hide()
+	populate_battle_item_menu()
+	
+func populate_battle_item_menu() -> void:
+	for child in battle_item_list.get_children():
+		child.queue_free()
+		
+	battle_item_menu_panel.show()
+	
+	var active_inv = GlobalGameManager.inventory
+	
+	if active_inv.is_empty():
+
+		var empty_label = Label.new()
+		empty_label.add_theme_font_override("font", default_font)
+		empty_label.text = "No items available!"
+		empty_label.add_theme_font_size_override("font_size", 10)
+		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		battle_item_list.add_child(empty_label)
+		
+	else:
+		for item: ItemData in active_inv.keys():
+			var quantity = active_inv[item]
+			
+			if item.type == ItemData.ItemType.CONSUMABLE:
+				var btn = Button.new()
+				btn.add_theme_font_override("font", default_font)
+				btn.add_theme_font_size_override("font_size", 10)
+				
+				btn.alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+				btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				
+				var empty_style = StyleBoxEmpty.new()
+				btn.add_theme_stylebox_override("normal", empty_style)
+				btn.add_theme_stylebox_override("hover", empty_style)
+				btn.add_theme_stylebox_override("pressed", empty_style)
+				btn.add_theme_stylebox_override("focused", empty_style)
+				
+				var row = HBoxContainer.new()
+				row.alignment = BoxContainer.ALIGNMENT_CENTER
+				
+				if item.texture:
+					var icon = TextureRect.new()
+					icon.texture = item.texture
+					icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+					icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+					icon.custom_minimum_size = Vector2(16, 16)
+					row.add_child(icon)
+				
+				var empty_label = Label.new()
+				empty_label.add_theme_font_override("font", default_font)
+				empty_label.add_theme_font_size_override("font_size", 10)
+				empty_label.text = item.item_name + " x" + str(quantity)
+				row.add_child(empty_label)
+				
+				btn.pressed.connect(func(): _on_battle_item_selected(item))
+				play_click_sound()
+				battle_item_list.add_child(btn)
+				
+				btn.add_child(row)
+				battle_item_list.add_child(row)
+				
+				btn.mouse_entered.connect(func():
+					btn.modulate = Color(1.5, 1.5, 1.5, 1)
+				)
+				btn.mouse_exited.connect(func():
+					btn.modulate = Color(1, 1, 1, 1)
+				)
+				
+	var back_btn = Button.new()
+	back_btn.add_theme_stylebox_override("normal", new_stylebox)
+	back_btn.add_theme_font_override("font", default_font)
+	back_btn.add_theme_font_size_override("font_size", 10)
+	back_btn.add_theme_stylebox_override("pressed", pressed_stylebox)
+	back_btn.add_theme_stylebox_override("hover", hover_stylebox)
+	back_btn.text = "< Cancel"
+	back_btn.pressed.connect(cancel_item_selection)
+	battle_item_list.add_child(back_btn)
+		
+func cancel_item_selection() -> void:
+	play_click_sound()
+	battle_item_menu_panel.hide()
+	action_menu_panel.show()
+	party_stats_panel.show()
+
+func _on_battle_item_selected(item: ItemData) -> void:
+	if current_fighter.current_hp >= current_fighter.max_hp:
+		DialogueUI.start_dialogue(["Health is already full!"] as Array[String])
+		get_viewport().gui_release_focus()
+		return
+	current_fighter.current_hp = min(current_fighter.max_hp, current_fighter.current_hp + item.hp_restoration)
+	GlobalGameManager.remove_item(item, 1)
+	
+
+	get_viewport().gui_release_focus()
+	
+	var msg = current_fighter.fighter_name + " used a " + item.item_name + " and recovered " + str(item.hp_restoration) + " HP!"
+	await display_message(msg)
+	battle_item_menu_panel.hide()
+	
+	advance_turn()
+	
 func populate_target_menu() -> void:
 	for child in target_list.get_children():
 		child.queue_free()
@@ -220,19 +334,22 @@ func populate_target_menu() -> void:
 			btn.text = enemy.fighter_name
 			btn.add_theme_stylebox_override("normal", new_stylebox)
 			btn.add_theme_font_override("font", default_font)
+			btn.add_theme_font_size_override("font_size", 10)
 			btn.add_theme_stylebox_override("pressed", pressed_stylebox)
 			btn.add_theme_stylebox_override("hover", hover_stylebox)
 			btn.pressed.connect(func(): _on_target_selected(enemy))
-			
+			play_click_sound()
 			target_list.add_child(btn)
 			
 	var back_btn = Button.new()
 	back_btn.text = "< Cancel"
 	back_btn.add_theme_stylebox_override("normal", new_stylebox)
 	back_btn.add_theme_font_override("font", default_font)
+	back_btn.add_theme_font_size_override("font_size", 10)
 	back_btn.add_theme_stylebox_override("pressed", pressed_stylebox)
 	back_btn.add_theme_stylebox_override("hover", hover_stylebox)
 	back_btn.pressed.connect(cancel_target_selection)
+	play_click_sound()
 	target_list.add_child(back_btn)
 	
 func _on_target_selected(target: Fighter) -> void:

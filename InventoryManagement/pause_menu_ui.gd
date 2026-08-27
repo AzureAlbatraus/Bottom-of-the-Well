@@ -67,6 +67,12 @@ func populate_inventory_view() -> void:
 		item_btn.alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
 		item_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		
+		var empty_style = StyleBoxEmpty.new()
+		item_btn.add_theme_stylebox_override("normal", empty_style)
+		item_btn.add_theme_stylebox_override("hover", empty_style)
+		item_btn.add_theme_stylebox_override("pressed", empty_style)
+		item_btn.add_theme_stylebox_override("focused", empty_style)
+		
 		var row = HBoxContainer.new()
 		
 		if item.texture:
